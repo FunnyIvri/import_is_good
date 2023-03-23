@@ -15,13 +15,14 @@ class Bullet_creator:
         self.bulletpos = pos
 
         self.bullet_size = size
+        self.rect = (-100,-100,-100,-100)
 def showbullet(bulletlist):
      i = 0
      while i < len(bulletlist) - 1:
          if bulletlist[i].bulletpos[1] == -100:
              del bulletlist[i]
          bulletlist[i].bulletpos[1] = bulletlist[i].bulletpos[1] - player.speed
-         pygame.draw.rect(root, "red", (bulletlist[i].bulletpos, bulletlist[i].bullet_size))
+         bullet.rect = pygame.draw.rect(root, "red", (bulletlist[i].bulletpos, bulletlist[i].bullet_size))
 
          i = i + 1
 
@@ -57,31 +58,41 @@ ships = []
 shipx = 0
 for i in range(5):
 
-    ship = Ship_creator("ship.png", [150,150], [shipx, 100])
+    ship = Ship_creator("ship.png", [100,100], [shipx, 100])
     ships.append(ship)
-    
+
     shipx = shipx + 150
 player = Player_creator("player.png", [100, 100], [400, 400], 10)
 bulletlist = []
 run = True
+ide = 0
 while run:
-
     root.fill("black")
     showships(ships, root)
     root.blit(text, textRect)
     textRect.center = (60, 60)
     player.show()
     for ship in ships:
-
+        ide = ide + 1
         x = ship.ship_rect.x
         y = ship.ship_rect.y
-
-
-        if ship.ship_rect.left <= 0 or ship.ship_rect.right >= root_size[0]:
-            y = y-10
+        j = 0
+        for bullet in bulletlist:
+            if ship.ship_rect.colliderect(bullet.rect):
+                print(ide)
+                print(len(ships))
+                del bulletlist[j]
+                del ships[ide-1]
+                continue
+            j=j+1
+        if ship.ship_rect.right >= root_size[0]:
+            y = y+100
             x = 0
+        else:
+            x = x+10
         ship.ship_rect.x = x
         ship.ship_rect.y = y
+        ide = 0
     if keyboard.is_pressed("a"):
         player.pos[0] = player.pos[0] - player.speed
         player.player_rect.center = player.pos
@@ -90,6 +101,7 @@ while run:
         player.player_rect.center = player.pos
     if shoots_fired:
        showbullet(bulletlist)
+
     for event in pygame.event.get():
 
         if event.type == pygame.KEYDOWN:
