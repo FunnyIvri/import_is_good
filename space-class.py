@@ -35,13 +35,26 @@ class Player_creator:
         self.size = size
         self.pos = pos
         self.speed = speed
-        self.player = pygame.image.load("player.png").convert()
+        self.player = pygame.image.load(image).convert()
         self.player = pygame.transform.scale(self.player, size)
         self.player_rect = self.player.get_rect()
         self.player_rect.center = pos
 
-#no need for class just assign
-#class Other_space_class:
+class Ship_creator:
+    def __int__(self, image, size, pos):
+        self.image = image
+        self.size = size
+        self.ship = pygame.image.load(image).convert()
+        self.ship = pygame.transform.scale(self.ship, size)
+        self.ship_rect = self.ship.get_rect()
+        self.ship_rect.center = pos
+def createship(ships):
+    x = Ship_creator("ship.png",(100, 100),(100, 400))
+
+    ships.append(x)
+
+ships = []
+createship(ships)
 player = Player_creator("player.png", [100, 100], [400, 400], 10)
 bulletlist = []
 run = True
@@ -67,7 +80,7 @@ while run:
             if keyname == "space":
                 newbullet = Bullet_creator([25,25],[-100,100])
                 newbullet.bulletpos[0] = player.player_rect.centerx - 32
-                newbullet.bulletpos[1] = player.player_rect.centery
+                newbullet.bulletpos[1] = player.player_rect.top
                 print(newbullet)
                 bulletlist.append(newbullet)
                 print(bulletlist)
