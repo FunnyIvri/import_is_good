@@ -7,5 +7,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="font-man" />
+    <orderEntry type="module" module-name="ball-go-brrr" />
   </component>
 </module>

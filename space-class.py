@@ -41,30 +41,47 @@ class Player_creator:
         self.player_rect.center = pos
 
 class Ship_creator:
-    def __int__(self, image, size, pos):
+    def __init__(self, image, size, pos):
         self.image = image
         self.size = size
         self.ship = pygame.image.load(image).convert()
         self.ship = pygame.transform.scale(self.ship, size)
+        self.ship = pygame.transform.rotate(self.ship,180)
         self.ship_rect = self.ship.get_rect()
         self.ship_rect.center = pos
-def createship(ships):
-    x = Ship_creator("ship.png",(100, 100),(100, 400))
-
-    ships.append(x)
+def showships(ships,root):
+    for ship in ships:
+        root.blit(ship.ship, ship.ship_rect)
 
 ships = []
-createship(ships)
+shipx = 0
+for i in range(5):
+
+    ship = Ship_creator("ship.png", [150,150], [shipx, 100])
+    ships.append(ship)
+    
+    shipx = shipx + 150
 player = Player_creator("player.png", [100, 100], [400, 400], 10)
 bulletlist = []
 run = True
 while run:
 
     root.fill("black")
+    showships(ships, root)
     root.blit(text, textRect)
     textRect.center = (60, 60)
     player.show()
+    for ship in ships:
 
+        x = ship.ship_rect.x
+        y = ship.ship_rect.y
+
+
+        if ship.ship_rect.left <= 0 or ship.ship_rect.right >= root_size[0]:
+            y = y-10
+            x = 0
+        ship.ship_rect.x = x
+        ship.ship_rect.y = y
     if keyboard.is_pressed("a"):
         player.pos[0] = player.pos[0] - player.speed
         player.player_rect.center = player.pos
