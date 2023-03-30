@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../ball-go-brrr/.idea/ball-go-brrr.iml" filepath="$PROJECT_DIR$/../ball-go-brrr/.idea/ball-go-brrr.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../font-man/.idea/font-man.iml" filepath="$PROJECT_DIR$/../font-man/.idea/font-man.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/import_is_good.iml" filepath="$PROJECT_DIR$/.idea/import_is_good.iml" />
     </modules>
   </component>
